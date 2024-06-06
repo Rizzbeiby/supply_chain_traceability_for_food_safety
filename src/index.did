@@ -1,0 +1,38 @@
+type Inspection = record {
+    id: text;
+    inspector: text;
+    timestamp: int;
+    result: text;
+    remarks: text;
+};
+
+type FoodProduct = record {
+    id: text;
+    name: text;
+    origin: text;
+    currentLocation: text;
+    owner: text;
+    status: text;
+    history: vec text;
+    createdAt: int;
+    updatedAt: opt int;
+    expirationDate: int;
+    inspections: vec Inspection;
+};
+
+service : {
+    createProduct: (name: text, origin: text, owner: text, expirationDate: text) -> (FoodProduct);
+    getAllProducts: () -> (vec FoodProduct);
+
+    getProductById: (id: text) -> (opt FoodProduct);
+
+    updateProduct: (id: text, name: opt text, status: opt text, expirationDate: opt text) -> (opt FoodProduct);
+
+    deleteProduct: (id: text) -> (opt FoodProduct);
+
+    transferProduct: (id: text, newOwner: text, newLocation: text) -> (opt FoodProduct);
+
+    recordInspection: (id: text, inspector: text, result: text, remarks: opt text) -> (opt FoodProduct);
+
+    getProductHistory: (id: text) -> (opt vec text);
+}
